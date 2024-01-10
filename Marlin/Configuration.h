@@ -136,7 +136,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "SWX1 BMG E3DV6 v1.4"
+#define CUSTOM_MACHINE_NAME "SWX1 BMG E3DV6 v1.5"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -1041,8 +1041,8 @@
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
-#define X_MIN_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
-#define Y_MIN_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
+#define X_MIN_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+#define Y_MIN_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
 #define Z_MIN_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
 #define I_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define J_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
@@ -1071,7 +1071,7 @@
  *
  * :[2,3,4,5,6,7]
  */
-//#define ENDSTOP_NOISE_THRESHOLD 2
+#define ENDSTOP_NOISE_THRESHOLD 2
 
 // Check for stuck or disconnected endstops during homing moves.
 //#define DETECT_BROKEN_ENDSTOP
@@ -1482,7 +1482,7 @@
 #define Z_PROBE_OFFSET_RANGE_MAX 20
 
 // Enable the M48 repeatability test to test probe accuracy
-//#define Z_MIN_PROBE_REPEATABILITY_TEST
+#define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // Before deploy/stow pause for user confirmation
 //#define PAUSE_BEFORE_DEPLOY_STOW
@@ -1545,7 +1545,7 @@
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR true
-#define INVERT_Y_DIR false
+#define INVERT_Y_DIR true
 #define INVERT_Z_DIR false
 //#define INVERT_I_DIR false
 //#define INVERT_J_DIR false
@@ -1575,7 +1575,7 @@
  */
 //#define Z_IDLE_HEIGHT Z_HOME_POS
 
-//#define Z_HOMING_HEIGHT  4      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
+#define Z_HOMING_HEIGHT  4      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                                   // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
 //#define Z_AFTER_HOMING  10      // (mm) Height to move to after homing Z
@@ -1623,7 +1623,7 @@
 #if ENABLED(MIN_SOFTWARE_ENDSTOPS)
   #define MIN_SOFTWARE_ENDSTOP_X
   #define MIN_SOFTWARE_ENDSTOP_Y
-  //#define MIN_SOFTWARE_ENDSTOP_Z
+  #define MIN_SOFTWARE_ENDSTOP_Z
   #define MIN_SOFTWARE_ENDSTOP_I
   #define MIN_SOFTWARE_ENDSTOP_J
   #define MIN_SOFTWARE_ENDSTOP_K
