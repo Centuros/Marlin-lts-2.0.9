@@ -44,9 +44,6 @@
 //===========================================================================
 
 /**
- * Here are some useful links to help get your machine configured and calibrated:
- *
- * Example Configs:     https://github.com/MarlinFirmware/Configurations/branches/all
  *
  * Průša Calculator:    https://blog.prusaprinters.org/calculator_3416/
  *
@@ -64,17 +61,6 @@
 // Author info of this build printed to the host during boot and M115
 #define STRING_CONFIG_H_AUTHOR "loveablecabbage" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
-
-/**
- * *** VENDORS PLEASE READ ***
- *
- * Marlin allows you to add a custom boot image for Graphical LCDs.
- * With this option Marlin will first show your custom screen followed
- * by the standard Marlin logo with version number and web URL.
- *
- * We encourage you to take advantage of this new feature and we also
- * respectfully request that you retain the unmodified Marlin boot screen.
- */
 
 // Show the Marlin bootscreen on startup. ** ENABLE FOR PRODUCTION **
 #define SHOW_BOOTSCREEN
@@ -136,7 +122,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "SWX1 BMG E3DV6 v3.1"
+#define CUSTOM_MACHINE_NAME "SWX1 BMG E3DV6 v3.2"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -161,46 +147,9 @@
 #define X_DRIVER_TYPE  TMC2209
 #define Y_DRIVER_TYPE  TMC2209
 #define Z_DRIVER_TYPE  TMC2209
-//#define X2_DRIVER_TYPE A4988
-//#define Y2_DRIVER_TYPE A4988
 #define Z2_DRIVER_TYPE TMC2209
-//#define Z3_DRIVER_TYPE A4988
-//#define Z4_DRIVER_TYPE A4988
-//#define I_DRIVER_TYPE  A4988
-//#define J_DRIVER_TYPE  A4988
-//#define K_DRIVER_TYPE  A4988
 #define E0_DRIVER_TYPE TMC2209
 //#define E1_DRIVER_TYPE A4988
-//#define E2_DRIVER_TYPE A4988
-//#define E3_DRIVER_TYPE A4988
-//#define E4_DRIVER_TYPE A4988
-//#define E5_DRIVER_TYPE A4988
-//#define E6_DRIVER_TYPE A4988
-//#define E7_DRIVER_TYPE A4988
-
-/**
- * Additional Axis Settings
- *
- * AXISn_NAME defines the letter used to refer to the axis in (most) G-code commands.
- * By convention the names and roles are typically:
- *   'A' : Rotational axis parallel to X
- *   'B' : Rotational axis parallel to Y
- *   'C' : Rotational axis parallel to Z
- *   'U' : Secondary linear axis parallel to X
- *   'V' : Secondary linear axis parallel to Y
- *   'W' : Secondary linear axis parallel to Z
- *
- * Regardless of these settings the axes are internally named I, J, K.
- */
-#ifdef I_DRIVER_TYPE
-  #define AXIS4_NAME 'A' // :['A', 'B', 'C', 'U', 'V', 'W']
-#endif
-#ifdef J_DRIVER_TYPE
-  #define AXIS5_NAME 'B' // :['B', 'C', 'U', 'V', 'W']
-#endif
-#ifdef K_DRIVER_TYPE
-  #define AXIS6_NAME 'C' // :['C', 'U', 'V', 'W']
-#endif
 
 // @section extruder
 
@@ -220,153 +169,6 @@
   //#define SINGLENOZZLE_STANDBY_TEMP
   //#define SINGLENOZZLE_STANDBY_FAN
 #endif
-
-/**
- * Multi-Material Unit
- * Set to one of these predefined models:
- *
- *   PRUSA_MMU1           : Průša MMU1 (The "multiplexer" version)
- *   PRUSA_MMU2           : Průša MMU2
- *   PRUSA_MMU2S          : Průša MMU2S (Requires MK3S extruder with motion sensor, EXTRUDERS = 5)
- *   EXTENDABLE_EMU_MMU2  : MMU with configurable number of filaments (ERCF, SMuFF or similar with Průša MMU2 compatible firmware)
- *   EXTENDABLE_EMU_MMU2S : MMUS with configurable number of filaments (ERCF, SMuFF or similar with Průša MMU2 compatible firmware)
- *
- * Requires NOZZLE_PARK_FEATURE to park print head in case MMU unit fails.
- * See additional options in Configuration_adv.h.
- */
-//#define MMU_MODEL PRUSA_MMU2
-
-// A dual extruder that uses a single stepper motor
-//#define SWITCHING_EXTRUDER
-#if ENABLED(SWITCHING_EXTRUDER)
-  #define SWITCHING_EXTRUDER_SERVO_NR 0
-  #define SWITCHING_EXTRUDER_SERVO_ANGLES { 0, 90 } // Angles for E0, E1[, E2, E3]
-  #if EXTRUDERS > 3
-    #define SWITCHING_EXTRUDER_E23_SERVO_NR 1
-  #endif
-#endif
-
-// A dual-nozzle that uses a servomotor to raise/lower one (or both) of the nozzles
-//#define SWITCHING_NOZZLE
-#if ENABLED(SWITCHING_NOZZLE)
-  #define SWITCHING_NOZZLE_SERVO_NR 0
-  //#define SWITCHING_NOZZLE_E1_SERVO_NR 1          // If two servos are used, the index of the second
-  #define SWITCHING_NOZZLE_SERVO_ANGLES { 0, 90 }   // Angles for E0, E1 (single servo) or lowered/raised (dual servo)
-#endif
-
-/**
- * Two separate X-carriages with extruders that connect to a moving part
- * via a solenoid docking mechanism. Requires SOL1_PIN and SOL2_PIN.
- */
-//#define PARKING_EXTRUDER
-
-/**
- * Two separate X-carriages with extruders that connect to a moving part
- * via a magnetic docking mechanism using movements and no solenoid
- *
- * project   : https://www.thingiverse.com/thing:3080893
- * movements : https://youtu.be/0xCEiG9VS3k
- *             https://youtu.be/Bqbcs0CU2FE
- */
-//#define MAGNETIC_PARKING_EXTRUDER
-
-#if EITHER(PARKING_EXTRUDER, MAGNETIC_PARKING_EXTRUDER)
-
-  #define PARKING_EXTRUDER_PARKING_X { -78, 184 }     // X positions for parking the extruders
-  #define PARKING_EXTRUDER_GRAB_DISTANCE 1            // (mm) Distance to move beyond the parking point to grab the extruder
-
-  #if ENABLED(PARKING_EXTRUDER)
-
-    #define PARKING_EXTRUDER_SOLENOIDS_INVERT           // If enabled, the solenoid is NOT magnetized with applied voltage
-    #define PARKING_EXTRUDER_SOLENOIDS_PINS_ACTIVE LOW  // LOW or HIGH pin signal energizes the coil
-    #define PARKING_EXTRUDER_SOLENOIDS_DELAY 250        // (ms) Delay for magnetic field. No delay if 0 or not defined.
-    //#define MANUAL_SOLENOID_CONTROL                   // Manual control of docking solenoids with M380 S / M381
-
-  #elif ENABLED(MAGNETIC_PARKING_EXTRUDER)
-
-    #define MPE_FAST_SPEED      9000      // (mm/min) Speed for travel before last distance point
-    #define MPE_SLOW_SPEED      4500      // (mm/min) Speed for last distance travel to park and couple
-    #define MPE_TRAVEL_DISTANCE   10      // (mm) Last distance point
-    #define MPE_COMPENSATION       0      // Offset Compensation -1 , 0 , 1 (multiplier) only for coupling
-
-  #endif
-
-#endif
-
-/**
- * Switching Toolhead
- *
- * Support for swappable and dockable toolheads, such as
- * the E3D Tool Changer. Toolheads are locked with a servo.
- */
-//#define SWITCHING_TOOLHEAD
-
-/**
- * Magnetic Switching Toolhead
- *
- * Support swappable and dockable toolheads with a magnetic
- * docking mechanism using movement and no servo.
- */
-//#define MAGNETIC_SWITCHING_TOOLHEAD
-
-/**
- * Electromagnetic Switching Toolhead
- *
- * Parking for CoreXY / HBot kinematics.
- * Toolheads are parked at one edge and held with an electromagnet.
- * Supports more than 2 Toolheads. See https://youtu.be/JolbsAKTKf4
- */
-//#define ELECTROMAGNETIC_SWITCHING_TOOLHEAD
-
-#if ANY(SWITCHING_TOOLHEAD, MAGNETIC_SWITCHING_TOOLHEAD, ELECTROMAGNETIC_SWITCHING_TOOLHEAD)
-  #define SWITCHING_TOOLHEAD_Y_POS          235         // (mm) Y position of the toolhead dock
-  #define SWITCHING_TOOLHEAD_Y_SECURITY      10         // (mm) Security distance Y axis
-  #define SWITCHING_TOOLHEAD_Y_CLEAR         60         // (mm) Minimum distance from dock for unobstructed X axis
-  #define SWITCHING_TOOLHEAD_X_POS          { 215, 0 }  // (mm) X positions for parking the extruders
-  #if ENABLED(SWITCHING_TOOLHEAD)
-    #define SWITCHING_TOOLHEAD_SERVO_NR       2         // Index of the servo connector
-    #define SWITCHING_TOOLHEAD_SERVO_ANGLES { 0, 180 }  // (degrees) Angles for Lock, Unlock
-  #elif ENABLED(MAGNETIC_SWITCHING_TOOLHEAD)
-    #define SWITCHING_TOOLHEAD_Y_RELEASE      5         // (mm) Security distance Y axis
-    #define SWITCHING_TOOLHEAD_X_SECURITY   { 90, 150 } // (mm) Security distance X axis (T0,T1)
-    //#define PRIME_BEFORE_REMOVE                       // Prime the nozzle before release from the dock
-    #if ENABLED(PRIME_BEFORE_REMOVE)
-      #define SWITCHING_TOOLHEAD_PRIME_MM           20  // (mm)   Extruder prime length
-      #define SWITCHING_TOOLHEAD_RETRACT_MM         10  // (mm)   Retract after priming length
-      #define SWITCHING_TOOLHEAD_PRIME_FEEDRATE    300  // (mm/min) Extruder prime feedrate
-      #define SWITCHING_TOOLHEAD_RETRACT_FEEDRATE 2400  // (mm/min) Extruder retract feedrate
-    #endif
-  #elif ENABLED(ELECTROMAGNETIC_SWITCHING_TOOLHEAD)
-    #define SWITCHING_TOOLHEAD_Z_HOP          2         // (mm) Z raise for switching
-  #endif
-#endif
-
-/**
- * "Mixing Extruder"
- *   - Adds G-codes M163 and M164 to set and "commit" the current mix factors.
- *   - Extends the stepping routines to move multiple steppers in proportion to the mix.
- *   - Optional support for Repetier Firmware's 'M164 S<index>' supporting virtual tools.
- *   - This implementation supports up to two mixing extruders.
- *   - Enable DIRECT_MIXING_IN_G1 for M165 and mixing in G1 (from Pia Taubert's reference implementation).
- */
-//#define MIXING_EXTRUDER
-#if ENABLED(MIXING_EXTRUDER)
-  #define MIXING_STEPPERS 2        // Number of steppers in your mixing extruder
-  #define MIXING_VIRTUAL_TOOLS 16  // Use the Virtual Tool method with M163 and M164
-  //#define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
-  //#define GRADIENT_MIX           // Support for gradient mixing with M166 and LCD
-  //#define MIXING_PRESETS         // Assign 8 default V-tool presets for 2 or 3 MIXING_STEPPERS
-  #if ENABLED(GRADIENT_MIX)
-    //#define GRADIENT_VTOOL       // Add M166 T to use a V-tool index as a Gradient alias
-  #endif
-#endif
-
-// Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
-// The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
-// For the other hotends it is their distance from the extruder 0 hotend.
-//#define HOTEND_OFFSET_X { 0.0, 20.00 } // (mm) relative X-offset for each nozzle
-//#define HOTEND_OFFSET_Y { 0.0, 5.00 }  // (mm) relative Y-offset for each nozzle
-//#define HOTEND_OFFSET_Z { 0.0, 0.00 }  // (mm) relative Z-offset for each nozzle
 
 // @section machine
 
@@ -528,12 +330,6 @@
 // Dummy thermistor constant temperature readings, for use with 998 and 999
 #define DUMMY_THERMISTOR_998_VALUE  25
 #define DUMMY_THERMISTOR_999_VALUE 100
-
-// Resistor values when using MAX31865 sensors (-5) on TEMP_SENSOR_0 / 1
-//#define MAX31865_SENSOR_OHMS_0      100   // (Ω) Typically 100 or 1000 (PT100 or PT1000)
-//#define MAX31865_CALIBRATION_OHMS_0 430   // (Ω) Typically 430 for Adafruit PT100; 4300 for Adafruit PT1000
-//#define MAX31865_SENSOR_OHMS_1      100
-//#define MAX31865_CALIBRATION_OHMS_1 430
 
 #define TEMP_RESIDENCY_TIME         10  // (seconds) Time to wait for hotend to "settle" in M109
 #define TEMP_WINDOW                  1  // (°C) Temperature proximity for the "temperature reached" timer
@@ -852,134 +648,6 @@
   #define POLAR_SEGMENTS_PER_SECOND 5
 #endif
 
-// Enable for DELTA kinematics and configure below
-//#define DELTA
-#if ENABLED(DELTA)
-
-  // Make delta curves from many straight lines (linear interpolation).
-  // This is a trade-off between visible corners (not enough segments)
-  // and processor overload (too many expensive sqrt calls).
-  #define DELTA_SEGMENTS_PER_SECOND 200
-
-  // After homing move down to a height where XY movement is unconstrained
-  //#define DELTA_HOME_TO_SAFE_ZONE
-
-  // Delta calibration menu
-  // uncomment to add three points calibration menu option.
-  // See http://minow.blogspot.com/index.html#4918805519571907051
-  //#define DELTA_CALIBRATION_MENU
-
-  // uncomment to add G33 Delta Auto-Calibration (Enable EEPROM_SETTINGS to store results)
-  //#define DELTA_AUTO_CALIBRATION
-
-  // NOTE NB all values for DELTA_* values MUST be floating point, so always have a decimal point in them
-
-  #if ENABLED(DELTA_AUTO_CALIBRATION)
-    // set the default number of probe points : n*n (1 -> 7)
-    #define DELTA_CALIBRATION_DEFAULT_POINTS 4
-  #endif
-
-  #if EITHER(DELTA_AUTO_CALIBRATION, DELTA_CALIBRATION_MENU)
-    // Set the steprate for papertest probing
-    #define PROBE_MANUALLY_STEP 0.05      // (mm)
-  #endif
-
-  // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
-  #define DELTA_PRINTABLE_RADIUS 140.0    // (mm)
-
-  // Maximum reachable area
-  #define DELTA_MAX_RADIUS       140.0    // (mm)
-
-  // Center-to-center distance of the holes in the diagonal push rods.
-  #define DELTA_DIAGONAL_ROD 250.0        // (mm)
-
-  // Distance between bed and nozzle Z home position
-  #define DELTA_HEIGHT 250.00             // (mm) Get this value from G33 auto calibrate
-
-  #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
-
-  // Horizontal distance bridged by diagonal push rods when effector is centered.
-  #define DELTA_RADIUS 124.0              // (mm) Get this value from G33 auto calibrate
-
-  // Trim adjustments for individual towers
-  // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
-  // measured in degrees anticlockwise looking from above the printer
-  #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
-
-  // Delta radius and diagonal rod adjustments (mm)
-  //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-  //#define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 }
-#endif
-
-/**
- * MORGAN_SCARA was developed by QHARLEY in South Africa in 2012-2013.
- * Implemented and slightly reworked by JCERNY in June, 2014.
- *
- * Mostly Printed SCARA is an open source design by Tyler Williams. See:
- *   https://www.thingiverse.com/thing:2487048
- *   https://www.thingiverse.com/thing:1241491
- */
-//#define MORGAN_SCARA
-//#define MP_SCARA
-#if EITHER(MORGAN_SCARA, MP_SCARA)
-  // If movement is choppy try lowering this value
-  #define SCARA_SEGMENTS_PER_SECOND 200
-
-  // Length of inner and outer support arms. Measure arm lengths precisely.
-  #define SCARA_LINKAGE_1 150       // (mm)
-  #define SCARA_LINKAGE_2 150       // (mm)
-
-  // SCARA tower offset (position of Tower relative to bed zero position)
-  // This needs to be reasonably accurate as it defines the printbed position in the SCARA space.
-  #define SCARA_OFFSET_X  100       // (mm)
-  #define SCARA_OFFSET_Y  -56       // (mm)
-
-  #if ENABLED(MORGAN_SCARA)
-
-    //#define DEBUG_SCARA_KINEMATICS
-    #define SCARA_FEEDRATE_SCALING  // Convert XY feedrate from mm/s to degrees/s on the fly
-
-    // Radius around the center where the arm cannot reach
-    #define MIDDLE_DEAD_ZONE_R   0  // (mm)
-
-    #define THETA_HOMING_OFFSET  0  // Calculated from Calibration Guide and M360 / M114. See http://reprap.harleystudio.co.za/?page_id=1073
-    #define PSI_HOMING_OFFSET    0  // Calculated from Calibration Guide and M364 / M114. See http://reprap.harleystudio.co.za/?page_id=1073
-
-  #elif ENABLED(MP_SCARA)
-
-    #define SCARA_OFFSET_THETA1  12 // degrees
-    #define SCARA_OFFSET_THETA2 131 // degrees
-
-  #endif
-
-#endif
-
-// Enable for TPARA kinematics and configure below
-//#define AXEL_TPARA
-#if ENABLED(AXEL_TPARA)
-  #define DEBUG_ROBOT_KINEMATICS
-  #define ROBOT_SEGMENTS_PER_SECOND 200
-
-  // Length of inner and outer support arms. Measure arm lengths precisely.
-  #define ROBOT_LINKAGE_1 120       // (mm)
-  #define ROBOT_LINKAGE_2 120       // (mm)
-
-  // SCARA tower offset (position of Tower relative to bed zero position)
-  // This needs to be reasonably accurate as it defines the printbed position in the SCARA space.
-  #define ROBOT_OFFSET_X    0       // (mm)
-  #define ROBOT_OFFSET_Y    0       // (mm)
-  #define ROBOT_OFFSET_Z    0       // (mm)
-
-  #define SCARA_FEEDRATE_SCALING  // Convert XY feedrate from mm/s to degrees/s on the fly
-
-  // Radius around the center where the arm cannot reach
-  #define MIDDLE_DEAD_ZONE_R   0  // (mm)
-
-  // Calculated from Calibration Guide and M360 / M114. See http://reprap.harleystudio.co.za/?page_id=1073
-  #define THETA_HOMING_OFFSET  0
-  #define PSI_HOMING_OFFSET    0
-#endif
-
 //===========================================================================
 //============================== Endstop Settings ===========================
 //===========================================================================
@@ -992,15 +660,9 @@
 #define USE_XMIN_PLUG
 #define USE_YMIN_PLUG
 #define USE_ZMIN_PLUG
-//#define USE_IMIN_PLUG
-//#define USE_JMIN_PLUG
-//#define USE_KMIN_PLUG
 //#define USE_XMAX_PLUG
 //#define USE_YMAX_PLUG
 //#define USE_ZMAX_PLUG
-//#define USE_IMAX_PLUG
-//#define USE_JMAX_PLUG
-//#define USE_KMAX_PLUG
 
 // Enable pullup for all endstops to prevent a floating state
 #define ENDSTOPPULLUPS
@@ -1009,15 +671,9 @@
   //#define ENDSTOPPULLUP_XMIN
   //#define ENDSTOPPULLUP_YMIN
   //#define ENDSTOPPULLUP_ZMIN
-  //#define ENDSTOPPULLUP_IMIN
-  //#define ENDSTOPPULLUP_JMIN
-  //#define ENDSTOPPULLUP_KMIN
-  //#define ENDSTOPPULLUP_XMAX
+   //#define ENDSTOPPULLUP_XMAX
   //#define ENDSTOPPULLUP_YMAX
   //#define ENDSTOPPULLUP_ZMAX
-  //#define ENDSTOPPULLUP_IMAX
-  //#define ENDSTOPPULLUP_JMAX
-  //#define ENDSTOPPULLUP_KMAX
   //#define ENDSTOPPULLUP_ZMIN_PROBE
 #endif
 
@@ -1044,15 +700,9 @@
 #define X_MIN_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
 #define Z_MIN_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
-#define I_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define J_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define K_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define I_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define J_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define K_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MIN_PROBE_ENDSTOP_INVERTING false// Set to true to invert the logic of the probe.
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
@@ -1235,83 +885,9 @@
  */
 
 /**
- * The "Manual Probe" provides a means to do "Auto" Bed Leveling without a probe.
- * Use G29 repeatedly, adjusting the Z height at each point with movement commands
- * or (with LCD_BED_LEVELING) the LCD controller.
- */
-//#define PROBE_MANUALLY
-
-/**
- * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
- *   (e.g., an inductive probe or a nozzle-based probe-switch.)
- */
-//#define FIX_MOUNTED_PROBE
-
-/**
- * Use the nozzle as the probe, as with a conductive
- * nozzle system or a piezo-electric smart effector.
- */
-//#define NOZZLE_AS_PROBE
-
-/**
- * Z Servo Probe, such as an endstop switch on a rotating arm.
- */
-//#define Z_PROBE_SERVO_NR 0       // Defaults to SERVO 0 connector.
-//#define Z_SERVO_ANGLES { 70, 0 } // Z Servo Deploy and Stow angles
-
-/**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
 #define BLTOUCH
-
-/**
- * MagLev V4 probe by MDD
- *
- * This probe is deployed and activated by powering a built-in electromagnet.
- */
-//#define MAGLEV4
-#if ENABLED(MAGLEV4)
-  //#define MAGLEV_TRIGGER_PIN 11     // Set to the connected digital output
-  #define MAGLEV_TRIGGER_DELAY 15     // Changing this risks overheating the coil
-#endif
-
-/**
- * Touch-MI Probe by hotends.fr
- *
- * This probe is deployed and activated by moving the X-axis to a magnet at the edge of the bed.
- * By default, the magnet is assumed to be on the left and activated by a home. If the magnet is
- * on the right, enable and set TOUCH_MI_DEPLOY_XPOS to the deploy position.
- *
- * Also requires: BABYSTEPPING, BABYSTEP_ZPROBE_OFFSET, Z_SAFE_HOMING,
- *                and a minimum Z_HOMING_HEIGHT of 10.
- */
-//#define TOUCH_MI_PROBE
-#if ENABLED(TOUCH_MI_PROBE)
-  #define TOUCH_MI_RETRACT_Z 0.5                  // Height at which the probe retracts
-  //#define TOUCH_MI_DEPLOY_XPOS (X_MAX_BED + 2)  // For a magnet on the right side of the bed
-  //#define TOUCH_MI_MANUAL_DEPLOY                // For manual deploy (LCD menu)
-#endif
-
-// A probe that is deployed and stowed with a solenoid pin (SOL1_PIN)
-//#define SOLENOID_PROBE
-
-// A sled-mounted probe like those designed by Charles Bell.
-//#define Z_PROBE_SLED
-//#define SLED_DOCKING_OFFSET 5  // The extra distance the X axis must travel to pickup the sled. 0 should be fine but you can push it further if you'd like.
-
-// A probe deployed by moving the x-axis, such as the Wilson II's rack-and-pinion probe designed by Marty Rice.
-//#define RACK_AND_PINION_PROBE
-#if ENABLED(RACK_AND_PINION_PROBE)
-  #define Z_PROBE_DEPLOY_X  X_MIN_POS
-  #define Z_PROBE_RETRACT_X X_MAX_POS
-#endif
-
-// Duet Smart Effector (for delta printers) - https://bit.ly/2ul5U7J
-// When the pin is defined you can use M672 to set/reset the probe sensitivity.
-//#define DUET_SMART_EFFECTOR
-#if ENABLED(DUET_SMART_EFFECTOR)
-  #define SMART_EFFECTOR_MOD_PIN  -1  // Connect a GPIO pin to the Smart Effector MOD pin
-#endif
 
 /**
  * Use StallGuard2 to probe the bed with the nozzle.
@@ -1320,38 +896,6 @@
  *          Take extreme care when setting up this feature.
  */
 //#define SENSORLESS_PROBING
-
-/**
- * Allen key retractable z-probe as seen on many Kossel delta printers - https://reprap.org/wiki/Kossel#Automatic_bed_leveling_probe
- * Deploys by touching z-axis belt. Retracts by pushing the probe down.
- */
-//#define Z_PROBE_ALLEN_KEY
-#if ENABLED(Z_PROBE_ALLEN_KEY)
-  // 2 or 3 sets of coordinates for deploying and retracting the spring loaded touch probe on G29,
-  // if servo actuated touch probe is not defined. Uncomment as appropriate for your printer/probe.
-
-  #define Z_PROBE_ALLEN_KEY_DEPLOY_1 { 30.0, DELTA_PRINTABLE_RADIUS, 100.0 }
-  #define Z_PROBE_ALLEN_KEY_DEPLOY_1_FEEDRATE XY_PROBE_FEEDRATE
-
-  #define Z_PROBE_ALLEN_KEY_DEPLOY_2 { 0.0, DELTA_PRINTABLE_RADIUS, 100.0 }
-  #define Z_PROBE_ALLEN_KEY_DEPLOY_2_FEEDRATE (XY_PROBE_FEEDRATE)/10
-
-  #define Z_PROBE_ALLEN_KEY_DEPLOY_3 { 0.0, (DELTA_PRINTABLE_RADIUS) * 0.75, 100.0 }
-  #define Z_PROBE_ALLEN_KEY_DEPLOY_3_FEEDRATE XY_PROBE_FEEDRATE
-
-  #define Z_PROBE_ALLEN_KEY_STOW_1 { -64.0, 56.0, 23.0 } // Move the probe into position
-  #define Z_PROBE_ALLEN_KEY_STOW_1_FEEDRATE XY_PROBE_FEEDRATE
-
-  #define Z_PROBE_ALLEN_KEY_STOW_2 { -64.0, 56.0, 3.0 } // Push it down
-  #define Z_PROBE_ALLEN_KEY_STOW_2_FEEDRATE (XY_PROBE_FEEDRATE)/10
-
-  #define Z_PROBE_ALLEN_KEY_STOW_3 { -64.0, 56.0, 50.0 } // Move it up to clear
-  #define Z_PROBE_ALLEN_KEY_STOW_3_FEEDRATE XY_PROBE_FEEDRATE
-
-  #define Z_PROBE_ALLEN_KEY_STOW_4 { 0.0, 0.0, 50.0 }
-  #define Z_PROBE_ALLEN_KEY_STOW_4_FEEDRATE XY_PROBE_FEEDRATE
-
-#endif // Z_PROBE_ALLEN_KEY
 
 /**
  * Nozzle-to-Probe offsets { X, Y, Z }
@@ -1445,18 +989,6 @@
 #endif
 
 /**
- * Multiple Probing
- *
- * You may get improved results by probing 2 or more times.
- * With EXTRA_PROBING the more atypical reading(s) will be disregarded.
- *
- * A total of 2 does fast/slow probes with a weighted average.
- * A total of 3 or more adds more slow probes, taking the average.
- */
-//#define MULTIPLE_PROBING 2
-//#define EXTRA_PROBING    1
-
-/**
  * Z probes require clearance when deploying, stowing, and moving between
  * probe points to avoid hitting the bed and other hardware.
  * Servo-mounted probes require extra space for the arm to rotate.
@@ -1520,18 +1052,12 @@
 #define Y_ENABLE_ON 0
 #define Z_ENABLE_ON 0
 #define E_ENABLE_ON 0 // For all extruders
-//#define I_ENABLE_ON 0
-//#define J_ENABLE_ON 0
-//#define K_ENABLE_ON 0
 
 // Disable axis steppers immediately when they're not being stepped.
 // WARNING: When motors turn off there is a chance of losing position accuracy!
 #define DISABLE_X false
 #define DISABLE_Y false
 #define DISABLE_Z false
-//#define DISABLE_I false
-//#define DISABLE_J false
-//#define DISABLE_K false
 
 // Turn off the display blinking that warns about possible accuracy reduction
 //#define DISABLE_REDUCED_ACCURACY_WARNING
@@ -1547,21 +1073,12 @@
 #define INVERT_X_DIR true
 #define INVERT_Y_DIR false
 #define INVERT_Z_DIR false
-//#define INVERT_I_DIR false
-//#define INVERT_J_DIR false
-//#define INVERT_K_DIR false
 
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
 #define INVERT_E0_DIR false
 #define INVERT_E1_DIR false
-#define INVERT_E2_DIR false
-#define INVERT_E3_DIR false
-#define INVERT_E4_DIR false
-#define INVERT_E5_DIR false
-#define INVERT_E6_DIR false
-#define INVERT_E7_DIR false
 
 // @section homing
 
@@ -1585,9 +1102,6 @@
 #define X_HOME_DIR -1
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
-//#define I_HOME_DIR -1
-//#define J_HOME_DIR -1
-//#define K_HOME_DIR -1
 
 // @section machine
 
@@ -1602,12 +1116,6 @@
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 385
-//#define I_MIN_POS 0
-//#define I_MAX_POS 50
-//#define J_MIN_POS 0
-//#define J_MAX_POS 50
-//#define K_MIN_POS 0
-//#define K_MAX_POS 50
 
 /**
  * Software Endstops
@@ -1624,9 +1132,6 @@
   #define MIN_SOFTWARE_ENDSTOP_X
   #define MIN_SOFTWARE_ENDSTOP_Y
   #define MIN_SOFTWARE_ENDSTOP_Z
-  #define MIN_SOFTWARE_ENDSTOP_I
-  #define MIN_SOFTWARE_ENDSTOP_J
-  #define MIN_SOFTWARE_ENDSTOP_K
 #endif
 
 // Max software endstops constrain movement within maximum coordinate bounds
@@ -1635,9 +1140,6 @@
   #define MAX_SOFTWARE_ENDSTOP_X
   #define MAX_SOFTWARE_ENDSTOP_Y
   #define MAX_SOFTWARE_ENDSTOP_Z
-  #define MAX_SOFTWARE_ENDSTOP_I
-  #define MAX_SOFTWARE_ENDSTOP_J
-  #define MAX_SOFTWARE_ENDSTOP_K
 #endif
 
 #if EITHER(MIN_SOFTWARE_ENDSTOPS, MAX_SOFTWARE_ENDSTOPS)
@@ -1672,34 +1174,6 @@
   //#define FIL_RUNOUT1_STATE LOW
   //#define FIL_RUNOUT1_PULLUP
   //#define FIL_RUNOUT1_PULLDOWN
-
-  //#define FIL_RUNOUT2_STATE LOW
-  //#define FIL_RUNOUT2_PULLUP
-  //#define FIL_RUNOUT2_PULLDOWN
-
-  //#define FIL_RUNOUT3_STATE LOW
-  //#define FIL_RUNOUT3_PULLUP
-  //#define FIL_RUNOUT3_PULLDOWN
-
-  //#define FIL_RUNOUT4_STATE LOW
-  //#define FIL_RUNOUT4_PULLUP
-  //#define FIL_RUNOUT4_PULLDOWN
-
-  //#define FIL_RUNOUT5_STATE LOW
-  //#define FIL_RUNOUT5_PULLUP
-  //#define FIL_RUNOUT5_PULLDOWN
-
-  //#define FIL_RUNOUT6_STATE LOW
-  //#define FIL_RUNOUT6_PULLUP
-  //#define FIL_RUNOUT6_PULLDOWN
-
-  //#define FIL_RUNOUT7_STATE LOW
-  //#define FIL_RUNOUT7_PULLUP
-  //#define FIL_RUNOUT7_PULLDOWN
-
-  //#define FIL_RUNOUT8_STATE LOW
-  //#define FIL_RUNOUT8_PULLUP
-  //#define FIL_RUNOUT8_PULLDOWN
 
   // Commands to execute on filament runout.
   // With multiple runout sensors use the %c placeholder for the current tool in commands (e.g., "M600 T%c")
@@ -1949,9 +1423,6 @@
 //#define MANUAL_X_HOME_POS 0
 //#define MANUAL_Y_HOME_POS 0
 //#define MANUAL_Z_HOME_POS 0
-//#define MANUAL_I_HOME_POS 0
-//#define MANUAL_J_HOME_POS 0
-//#define MANUAL_K_HOME_POS 0
 
 /**
  * Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
@@ -2410,169 +1881,9 @@
 //#define LCD_FEEDBACK_FREQUENCY_HZ 5000
 
 //=============================================================================
-//======================== LCD / Controller Selection =========================
-//========================   (Character-based LCDs)   =========================
-//=============================================================================
-
-//
-// RepRapDiscount Smart Controller.
-// https://reprap.org/wiki/RepRapDiscount_Smart_Controller
-//
-// Note: Usually sold with a white PCB.
-//
-//#define REPRAP_DISCOUNT_SMART_CONTROLLER
-
-//
-// GT2560 (YHCB2004) LCD Display
-//
-// Requires Testato, Koepel softwarewire library and
-// Andriy Golovnya's LiquidCrystal_AIP31068 library.
-//
-//#define YHCB2004
-
-//
-// Original RADDS LCD Display+Encoder+SDCardReader
-// http://doku.radds.org/dokumentation/lcd-display/
-//
-//#define RADDS_DISPLAY
-
-//
-// ULTIMAKER Controller.
-//
-//#define ULTIMAKERCONTROLLER
-
-//
-// ULTIPANEL as seen on Thingiverse.
-//
-//#define ULTIPANEL
-
-//
-// PanelOne from T3P3 (via RAMPS 1.4 AUX2/AUX3)
-// https://reprap.org/wiki/PanelOne
-//
-//#define PANEL_ONE
-
-//
-// GADGETS3D G3D LCD/SD Controller
-// https://reprap.org/wiki/RAMPS_1.3/1.4_GADGETS3D_Shield_with_Panel
-//
-// Note: Usually sold with a blue PCB.
-//
-//#define G3D_PANEL
-
-//
-// RigidBot Panel V1.0
-// http://www.inventapart.com/
-//
-//#define RIGIDBOT_PANEL
-
-//
-// Makeboard 3D Printer Parts 3D Printer Mini Display 1602 Mini Controller
-// https://www.aliexpress.com/item/32765887917.html
-//
-//#define MAKEBOARD_MINI_2_LINE_DISPLAY_1602
-
-//
-// ANET and Tronxy 20x4 Controller
-//
-//#define ZONESTAR_LCD            // Requires ADC_KEYPAD_PIN to be assigned to an analog pin.
-                                  // This LCD is known to be susceptible to electrical interference
-                                  // which scrambles the display.  Pressing any button clears it up.
-                                  // This is a LCD2004 display with 5 analog buttons.
-
-//
-// Generic 16x2, 16x4, 20x2, or 20x4 character-based LCD.
-//
-//#define ULTRA_LCD
-
-//=============================================================================
-//======================== LCD / Controller Selection =========================
-//=====================   (I2C and Shift-Register LCDs)   =====================
-//=============================================================================
-
-//
-// CONTROLLER TYPE: I2C
-//
-// Note: These controllers require the installation of Arduino's LiquidCrystal_I2C
-// library. For more info: https://github.com/kiyoshigawa/LiquidCrystal_I2C
-//
-
-//
-// Elefu RA Board Control Panel
-// http://www.elefu.com/index.php?route=product/product&product_id=53
-//
-//#define RA_CONTROL_PANEL
-
-//
-// Sainsmart (YwRobot) LCD Displays
-//
-// These require F.Malpartida's LiquidCrystal_I2C library
-// https://bitbucket.org/fmalpartida/new-liquidcrystal/wiki/Home
-//
-//#define LCD_SAINSMART_I2C_1602
-//#define LCD_SAINSMART_I2C_2004
-
-//
-// Generic LCM1602 LCD adapter
-//
-//#define LCM1602
-
-//
-// PANELOLU2 LCD with status LEDs,
-// separate encoder and click inputs.
-//
-// Note: This controller requires Arduino's LiquidTWI2 library v1.2.3 or later.
-// For more info: https://github.com/lincomatic/LiquidTWI2
-//
-// Note: The PANELOLU2 encoder click input can either be directly connected to
-// a pin (if BTN_ENC defined to != -1) or read through I2C (when BTN_ENC == -1).
-//
-//#define LCD_I2C_PANELOLU2
-
-//
-// Panucatt VIKI LCD with status LEDs,
-// integrated click & L/R/U/D buttons, separate encoder inputs.
-//
-//#define LCD_I2C_VIKI
-
-//
-// CONTROLLER TYPE: Shift register panels
-//
-
-//
-// 2-wire Non-latching LCD SR from https://goo.gl/aJJ4sH
-// LCD configuration: https://reprap.org/wiki/SAV_3D_LCD
-//
-//#define SAV_3DLCD
-
-//
-// 3-wire SR LCD with strobe using 74HC4094
-// https://github.com/mikeshub/SailfishLCD
-// Uses the code directly from Sailfish
-//
-//#define FF_INTERFACEBOARD
-
-//
-// TFT GLCD Panel with Marlin UI
-// Panel connected to main board by SPI or I2C interface.
-// See https://github.com/Serhiy-K/TFTGLCDAdapter
-//
-//#define TFTGLCD_PANEL_SPI
-//#define TFTGLCD_PANEL_I2C
-
-//=============================================================================
 //=======================   LCD / Controller Selection  =======================
 //=========================      (Graphical LCDs)      ========================
 //=============================================================================
-
-//
-// CONTROLLER TYPE: Graphical 128x64 (DOGM)
-//
-// IMPORTANT: The U8glib library is required for Graphical Display!
-//            https://github.com/olikraus/U8glib_Arduino
-//
-// NOTE: If the LCD is unresponsive you may need to reverse the plugs.
-//
 
 //
 // RepRapDiscount FULL GRAPHIC Smart Controller
@@ -2580,268 +1891,11 @@
 //
 #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
 
-//
-// K.3D Full Graphic Smart Controller
-//
-//#define K3D_FULL_GRAPHIC_SMART_CONTROLLER
-
-//
-// ReprapWorld Graphical LCD
-// https://reprapworld.com/?products_details&products_id/1218
-//
-//#define REPRAPWORLD_GRAPHICAL_LCD
-
-//
-// Activate one of these if you have a Panucatt Devices
-// Viki 2.0 or mini Viki with Graphic LCD
-// https://www.panucatt.com
-//
-//#define VIKI2
-//#define miniVIKI
-
-//
-// Alfawise Ex8 printer LCD marked as WYH L12864 COG
-//
-//#define WYH_L12864
-
-//
-// MakerLab Mini Panel with graphic
-// controller and SD support - https://reprap.org/wiki/Mini_panel
-//
-//#define MINIPANEL
-
-//
-// MaKr3d Makr-Panel with graphic controller and SD support.
-// https://reprap.org/wiki/MaKr3d_MaKrPanel
-//
-//#define MAKRPANEL
-
-//
-// Adafruit ST7565 Full Graphic Controller.
-// https://github.com/eboston/Adafruit-ST7565-Full-Graphic-Controller/
-//
-//#define ELB_FULL_GRAPHIC_CONTROLLER
-
-//
-// BQ LCD Smart Controller shipped by
-// default with the BQ Hephestos 2 and Witbox 2.
-//
-//#define BQ_LCD_SMART_CONTROLLER
-
-//
-// Cartesio UI
-// http://mauk.cc/webshop/cartesio-shop/electronics/user-interface
-//
-//#define CARTESIO_UI
-
-//
-// LCD for Melzi Card with Graphical LCD
-//
-//#define LCD_FOR_MELZI
-
-//
-// Original Ulticontroller from Ultimaker 2 printer with SSD1309 I2C display and encoder
-// https://github.com/Ultimaker/Ultimaker2/tree/master/1249_Ulticontroller_Board_(x1)
-//
-//#define ULTI_CONTROLLER
-
-//
-// MKS MINI12864 with graphic controller and SD support
-// https://reprap.org/wiki/MKS_MINI_12864
-//
-//#define MKS_MINI_12864
-
-//
-// MKS MINI12864 V3 is an alias for FYSETC_MINI_12864_2_1. Type A/B. NeoPixel RGB Backlight.
-//
-//#define MKS_MINI_12864_V3
-
-//
-// MKS LCD12864A/B with graphic controller and SD support. Follows MKS_MINI_12864 pinout.
-// https://www.aliexpress.com/item/33018110072.html
-//
-//#define MKS_LCD12864A
-//#define MKS_LCD12864B
-
-//
-// FYSETC variant of the MINI12864 graphic controller with SD support
-// https://wiki.fysetc.com/Mini12864_Panel/
-//
-//#define FYSETC_MINI_12864_X_X    // Type C/D/E/F. No tunable RGB Backlight by default
-//#define FYSETC_MINI_12864_1_2    // Type C/D/E/F. Simple RGB Backlight (always on)
-//#define FYSETC_MINI_12864_2_0    // Type A/B. Discreet RGB Backlight
-//#define FYSETC_MINI_12864_2_1    // Type A/B. NeoPixel RGB Backlight
-//#define FYSETC_GENERIC_12864_1_1 // Larger display with basic ON/OFF backlight.
-
-//
-// BigTreeTech Mini 12864 V1.0 is an alias for FYSETC_MINI_12864_2_1. Type A/B. NeoPixel RGB Backlight.
-//
-//#define BTT_MINI_12864_V1
-
-//
-// Factory display for Creality CR-10
-// https://www.aliexpress.com/item/32833148327.html
-//
-// This is RAMPS-compatible using a single 10-pin connector.
-// (For CR-10 owners who want to replace the Melzi Creality board but retain the display)
-//
-//#define CR10_STOCKDISPLAY
-
-//
-// Ender-2 OEM display, a variant of the MKS_MINI_12864
-//
-//#define ENDER2_STOCKDISPLAY
-
-//
-// ANET and Tronxy Graphical Controller
-//
-// Anet 128x64 full graphics lcd with rotary encoder as used on Anet A6
-// A clone of the RepRapDiscount full graphics display but with
-// different pins/wiring (see pins_ANET_10.h). Enable one of these.
-//
-//#define ANET_FULL_GRAPHICS_LCD
-//#define ANET_FULL_GRAPHICS_LCD_ALT_WIRING
-
-//
-// AZSMZ 12864 LCD with SD
-// https://www.aliexpress.com/item/32837222770.html
-//
-//#define AZSMZ_12864
-
-//
-// Silvergate GLCD controller
-// https://github.com/android444/Silvergate
-//
-//#define SILVER_GATE_GLCD_CONTROLLER
-
-//=============================================================================
-//==============================  OLED Displays  ==============================
-//=============================================================================
-
-//
-// SSD1306 OLED full graphics generic display
-//
-//#define U8GLIB_SSD1306
-
-//
-// SAV OLEd LCD module support using either SSD1306 or SH1106 based LCD modules
-//
-//#define SAV_3DGLCD
-#if ENABLED(SAV_3DGLCD)
-  #define U8GLIB_SSD1306
-  //#define U8GLIB_SH1106
-#endif
-
-//
-// TinyBoy2 128x64 OLED / Encoder Panel
-//
-//#define OLED_PANEL_TINYBOY2
-
-//
-// MKS OLED 1.3" 128×64 Full Graphics Controller
-// https://reprap.org/wiki/MKS_12864OLED
-//
-// Tiny, but very sharp OLED display
-//
-//#define MKS_12864OLED          // Uses the SH1106 controller (default)
-//#define MKS_12864OLED_SSD1306  // Uses the SSD1306 controller
-
-//
-// Zonestar OLED 128×64 Full Graphics Controller
-//
-//#define ZONESTAR_12864LCD           // Graphical (DOGM) with ST7920 controller
-//#define ZONESTAR_12864OLED          // 1.3" OLED with SH1106 controller (default)
-//#define ZONESTAR_12864OLED_SSD1306  // 0.96" OLED with SSD1306 controller
-
-//
-// Einstart S OLED SSD1306
-//
-//#define U8GLIB_SH1106_EINSTART
-
-//
-// Overlord OLED display/controller with i2c buzzer and LEDs
-//
-//#define OVERLORD_OLED
-
-//
-// FYSETC OLED 2.42" 128×64 Full Graphics Controller with WS2812 RGB
-// Where to find : https://www.aliexpress.com/item/4000345255731.html
-//#define FYSETC_242_OLED_12864   // Uses the SSD1309 controller
-
-//
-// K.3D SSD1309 OLED 2.42" 128×64 Full Graphics Controller
-//
-//#define K3D_242_OLED_CONTROLLER   // Software SPI
 
 //=============================================================================
 //========================== Extensible UI Displays ===========================
 //=============================================================================
 
-/**
- * DGUS Touch Display with DWIN OS. (Choose one.)
- * ORIGIN : https://www.aliexpress.com/item/32993409517.html
- * FYSETC : https://www.aliexpress.com/item/32961471929.html
- * MKS    : https://www.aliexpress.com/item/1005002008179262.html
- *
- * Flash display with DGUS Displays for Marlin:
- *  - Format the SD card to FAT32 with an allocation size of 4kb.
- *  - Download files as specified for your type of display.
- *  - Plug the microSD card into the back of the display.
- *  - Boot the display and wait for the update to complete.
- *
- * ORIGIN (Marlin DWIN_SET)
- *  - Download https://github.com/coldtobi/Marlin_DGUS_Resources
- *  - Copy the downloaded DWIN_SET folder to the SD card.
- *
- * FYSETC (Supplier default)
- *  - Download https://github.com/FYSETC/FYSTLCD-2.0
- *  - Copy the downloaded SCREEN folder to the SD card.
- *
- * HIPRECY (Supplier default)
- *  - Download https://github.com/HiPrecy/Touch-Lcd-LEO
- *  - Copy the downloaded DWIN_SET folder to the SD card.
- *
- * MKS (MKS-H43) (Supplier default)
- *  - Download https://github.com/makerbase-mks/MKS-H43
- *  - Copy the downloaded DWIN_SET folder to the SD card.
- *
- * RELOADED (T5UID1)
- *  - Download https://github.com/Desuuuu/DGUS-reloaded/releases
- *  - Copy the downloaded DWIN_SET folder to the SD card.
- */
-//#define DGUS_LCD_UI_ORIGIN
-//#define DGUS_LCD_UI_FYSETC
-//#define DGUS_LCD_UI_HIPRECY
-//#define DGUS_LCD_UI_MKS
-//#define DGUS_LCD_UI_RELOADED
-#if ENABLED(DGUS_LCD_UI_MKS)
-  #define USE_MKS_GREEN_UI
-#endif
-
-//
-// Touch-screen LCD for Malyan M200/M300 printers
-//
-//#define MALYAN_LCD
-
-//
-// Touch UI for FTDI EVE (FT800/FT810) displays
-// See Configuration_adv.h for all configuration options.
-//
-//#define TOUCH_UI_FTDI_EVE
-
-//
-// Touch-screen LCD for Anycubic printers
-//
-//#define ANYCUBIC_LCD_I3MEGA
-//#define ANYCUBIC_LCD_CHIRON
-#if EITHER(ANYCUBIC_LCD_I3MEGA, ANYCUBIC_LCD_CHIRON)
-  //#define ANYCUBIC_LCD_DEBUG
-#endif
-
-//
-// 320x240 Nextion 2.8" serial TFT Resistive Touch Screen NX3224T028
-//
-//#define NEXTION_TFT
 
 //
 // Third-party or vendor-customized controller interfaces.
@@ -2852,91 +1906,6 @@
 #if ENABLED(EXTENSIBLE_UI)
   //#define EXTUI_LOCAL_BEEPER // Enables use of local Beeper pin with external display
 #endif
-
-//=============================================================================
-//=============================== Graphical TFTs ==============================
-//=============================================================================
-
-/**
- * Specific TFT Model Presets. Enable one of the following options
- * or enable TFT_GENERIC and set sub-options.
- */
-
-//
-// 480x320, 3.5", SPI Display with Rotary Encoder from MKS
-// Usually paired with MKS Robin Nano V2 & V3
-//
-//#define MKS_TS35_V2_0
-
-//
-// 320x240, 2.4", FSMC Display From MKS
-// Usually paired with MKS Robin Nano V1.2
-//
-//#define MKS_ROBIN_TFT24
-
-//
-// 320x240, 2.8", FSMC Display From MKS
-// Usually paired with MKS Robin Nano V1.2
-//
-//#define MKS_ROBIN_TFT28
-
-//
-// 320x240, 3.2", FSMC Display From MKS
-// Usually paired with MKS Robin Nano V1.2
-//
-//#define MKS_ROBIN_TFT32
-
-//
-// 480x320, 3.5", FSMC Display From MKS
-// Usually paired with MKS Robin Nano V1.2
-//
-//#define MKS_ROBIN_TFT35
-
-//
-// 480x272, 4.3", FSMC Display From MKS
-//
-//#define MKS_ROBIN_TFT43
-
-//
-// 320x240, 3.2", FSMC Display From MKS
-// Usually paired with MKS Robin
-//
-//#define MKS_ROBIN_TFT_V1_1R
-
-//
-// 480x320, 3.5", FSMC Stock Display from TronxXY
-//
-//#define TFT_TRONXY_X5SA
-
-//
-// 480x320, 3.5", FSMC Stock Display from AnyCubic
-//
-//#define ANYCUBIC_TFT35
-
-//
-// 320x240, 2.8", FSMC Stock Display from Longer/Alfawise
-//
-//#define LONGER_LK_TFT28
-
-//
-// 320x240, 2.8", FSMC Stock Display from ET4
-//
-//#define ANET_ET4_TFT28
-
-//
-// 480x320, 3.5", FSMC Stock Display from ET5
-//
-//#define ANET_ET5_TFT35
-
-//
-// 1024x600, 7", RGB Stock Display with Rotary Encoder from BIQU-BX
-//
-//#define BIQU_BX_TFT70
-
-//
-// 480x320, 3.5", SPI Stock Display with Rotary Encoder from BIQU B1 SE Series
-//
-//#define BTT_TFT35_SPI_V1_0
 
 //
 // Generic TFT with detailed options
@@ -2985,20 +1954,6 @@
  */
 //#define TFT_ROTATION TFT_NO_ROTATION
 
-//=============================================================================
-//============================  Other Controllers  ============================
-//=============================================================================
-
-//
-// Ender-3 v2 OEM display. A DWIN display with Rotary Encoder.
-//
-//#define DWIN_CREALITY_LCD           // Creality UI
-//#define DWIN_LCD_PROUI              // Pro UI by MRiscoC
-//#define DWIN_CREALITY_LCD_JYERSUI   // Jyers UI by Jacob Myers
-//#define DWIN_MARLINUI_PORTRAIT      // MarlinUI (portrait orientation)
-//#define DWIN_MARLINUI_LANDSCAPE     // MarlinUI (landscape orientation)
-
-//
 // Touch Screen Settings
 //
 //#define TOUCH_SCREEN
@@ -3024,18 +1979,6 @@
     //#define SINGLE_TOUCH_NAVIGATION
   #endif
 #endif
-
-//
-// RepRapWorld REPRAPWORLD_KEYPAD v1.1
-// https://reprapworld.com/products/electronics/ramps/keypad_v1_0_fully_assembled/
-//
-//#define REPRAPWORLD_KEYPAD
-//#define REPRAPWORLD_KEYPAD_MOVE_STEP 10.0 // (mm) Distance to move per key-press
-
-//
-// EasyThreeD ET-4000+ with button input and status LED
-//
-//#define EASYTHREED_UI
 
 //=============================================================================
 //=============================== Extra Features ==============================
