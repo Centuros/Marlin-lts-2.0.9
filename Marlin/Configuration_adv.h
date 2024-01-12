@@ -576,7 +576,6 @@
  *   - Use X2_USE_ENDSTOP to set the endstop plug by name. (_XMIN_, _XMAX_, _YMIN_, _YMAX_, _ZMIN_, _ZMAX_)
  */
 
-//
 // Multi-Z steppers
 //
 #ifdef Z2_DRIVER_TYPE
@@ -769,9 +768,7 @@
   #define HOME_AFTER_G34
 #endif
 
-//
 // Add the G35 command to read bed corners to help adjust screws. Requires a bed probe.
-//
 //#define ASSISTED_TRAMMING
 #if ENABLED(ASSISTED_TRAMMING)
 
@@ -855,10 +852,8 @@
 // if unwanted behavior is observed on a user's machine when running at very slow speeds.
 #define MINIMUM_PLANNER_SPEED 0.05 // (mm/s)
 
-//
 // Backlash Compensation
 // Adds extra movement to axes on direction-changes to account for backlash.
-//
 //#define BACKLASH_COMPENSATION
 #if ENABLED(BACKLASH_COMPENSATION)
   // Define values for backlash distance and correction.
@@ -966,9 +961,7 @@
   #define FEEDRATE_CHANGE_BEEP_FREQUENCY 440
 #endif
 
-//
 // LCD Backlight Timeout
-//
 //#define LCD_BACKLIGHT_TIMEOUT 30 // (s) Timeout before turning off the backlight
 
 #if HAS_BED_PROBE && EITHER(HAS_MARLINUI_MENU, HAS_TFT_LVGL_UI)
@@ -1443,7 +1436,6 @@
   //#define OVERLAY_GFX_REVERSE
 #endif
 
-//
 // ADC Button Debounce
 //
 #if HAS_ADC_BUTTONS
@@ -1670,12 +1662,9 @@
 
 // @section extras
 
-//
 // G60/G61 Position Save and Return
-//
 //#define SAVED_POSITIONS 1         // Each saved position slot costs 12 bytes
 
-//
 // G2/G3 Arc Support
 //
 #define ARC_SUPPORT                   // Requires ~3226 bytes
@@ -2431,7 +2420,6 @@
 
 // I2C Master ID for LPC176x LCD and Digital Current control
 // Does not apply to other peripherals based on the Wire library.
-//
 //#define I2C_MASTER_ID  1  // Set a value from 0 to 2
 
 // TWI/I2C BUS
@@ -2959,19 +2947,13 @@
 
 // @section develop
 
-//
 // M100 Free Memory Watcher to debug memory usage
-//
 //#define M100_FREE_MEMORY_WATCHER
 
-//
 // M42 - Set pin states
-//
 //#define DIRECT_PIN_CONTROL
 
-//
 // M43 - display pin status, toggle pins, watch pins, watch endstops & toggle LED, test servo probe
-//
 //#define PINS_DEBUGGING
 
 // Enable Marlin dev mode which adds some special commands

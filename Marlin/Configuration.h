@@ -710,7 +710,7 @@
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
 // use 838 for BMG extruder mated to LDO Motors .9 degree stepper with stock microstepping at 15bits
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 200 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 422.68 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -724,6 +724,7 @@
   #define MAX_FEEDRATE_EDIT_VALUES    { 600, 600, 10, 50 } // ...or, set your own edit limits
 #endif
 
+// Default Max Acceleration
 /**
  * Default Max Acceleration (change/s) change = mm/s
  * (Maximum start speed for accelerated moves)
@@ -737,6 +738,7 @@
   #define MAX_ACCEL_EDIT_VALUES       { 6000, 6000, 200, 20000 } // ...or, set your own edit limits
 #endif
 
+// Default Acceleration
 /**
  * Default Acceleration (change/s) change = mm/s
  * Override with M204
@@ -749,6 +751,8 @@
 #define DEFAULT_RETRACT_ACCELERATION 10000    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   2000    // X, Y, Z ... acceleration for travel (non printing) moves
 
+
+// Default Classic Jerk limits
 /**
  * Default Jerk limits (mm/s)
  * Override with M205 X Y Z E
@@ -776,6 +780,7 @@
 
 #define DEFAULT_EJERK    5.0  // May be used by Linear Advance
 
+// Junction Deviation Factor
 /**
  * Junction Deviation Factor
  *
@@ -789,6 +794,7 @@
                                       // for small segments (< 1mm) with large junction angles (> 135°).
 #endif
 
+// S-Curve Acceleration
 /**
  * S-Curve Acceleration
  *
@@ -799,15 +805,12 @@
  */
 #define S_CURVE_ACCELERATION
 
-//===========================================================================
+
 //============================= Z Probe Options =============================
-//===========================================================================
 // @section probes
-
-//
 // See https://marlinfw.org/docs/configuration/probes.html
-//
 
+// Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 /**
  * Enable this option for a probe connected to the Z-MIN pin.
  * The probe replaces the Z-MIN endstop and is used for Z homing.
@@ -818,6 +821,7 @@
 // Force the use of the probe for Z-axis homing
 #define USE_PROBE_FOR_Z_HOMING
 
+// Z_MIN_PROBE_PIN
 /**
  * Z_MIN_PROBE_PIN
  *
@@ -835,11 +839,13 @@
  */
 //#define Z_MIN_PROBE_PIN 32 // Pin 32 is the RAMPS default
 
+// BLTouch
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
 #define BLTOUCH
 
+// SENSORLESS_PROBING
 /**
  * Use StallGuard2 to probe the bed with the nozzle.
  * Requires stallGuard-capable Trinamic stepper drivers.
@@ -1144,11 +1150,8 @@
   #endif
 #endif
 
-//===========================================================================
 //=============================== Bed Leveling ==============================
-//===========================================================================
 // @section calibrate
-
 /**
  * Choose one of the options below to enable G29 Bed Leveling. The parameters
  * and behavior of G29 will change depending on your selection.
@@ -1452,12 +1455,8 @@
   //#define SKEW_CORRECTION_GCODE
 #endif
 
-//=============================================================================
 //============================= Additional Features ===========================
-//=============================================================================
-
 // @section extras
-
 /**
  * EEPROM
  *
@@ -1476,31 +1475,23 @@
   //#define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
 #endif
 
-//
 // Host Keepalive
-//
 // When enabled Marlin will send a busy status message to the host
 // every couple of seconds when it can't accept commands.
-//
+
 #define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
 #define DEFAULT_KEEPALIVE_INTERVAL 2  // Number of seconds between "busy" messages. Set with M113.
 #define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
 
-//
 // G20/G21 Inch mode support
-//
 //#define INCH_MODE_SUPPORT
 
-//
 // M149 Set temperature units support
-//
 //#define TEMPERATURE_UNITS_SUPPORT
 
 // @section temperature
-
-//
 // Preheat Constants - Up to 6 are supported without changes
-//
+
 #define PREHEAT_1_LABEL       "PLA"
 #define PREHEAT_1_TEMP_HOTEND 190
 #define PREHEAT_1_TEMP_BED     60
@@ -1611,6 +1602,7 @@
 
 #endif
 
+// Print Job Timer
 /**
  * Print Job Timer
  *
@@ -1637,6 +1629,7 @@
  */
 #define PRINTJOB_TIMER_AUTOSTART
 
+// Print Counter
 /**
  * Print Counter
  *
@@ -1654,6 +1647,7 @@
   #define PRINTCOUNTER_SAVE_INTERVAL 60 // (minutes) EEPROM save interval during print
 #endif
 
+// Password
 /**
  * Password
  *
@@ -1685,12 +1679,10 @@
   //#include "Configuration_Secure.h"       // External file with PASSWORD_DEFAULT_VALUE
 #endif
 
-//=============================================================================
 //============================= LCD and SD support ============================
-//=============================================================================
-
 // @section lcd
 
+// LCD LANGUAGE
 /**
  * LCD LANGUAGE
  *
@@ -1703,6 +1695,7 @@
  */
 #define LCD_LANGUAGE en
 
+// LCD Character Set
 /**
  * LCD Character Set
  *
@@ -1758,20 +1751,16 @@
 //#define NO_LCD_MENUS
 //#define SLIM_LCD_MENUS
 
-//
 // ENCODER SETTINGS
-//
 // This option overrides the default number of encoder pulses needed to
 // produce one step. Should be increased for high-resolution encoders.
-//
 //#define ENCODER_PULSES_PER_STEP 4
 
-//
 // Use this option to override the number of step signals required to
 // move between next/prev menu items.
-//
 //#define ENCODER_STEPS_PER_MENU_ITEM 1
 
+// Encoder Direction Options
 /**
  * Encoder Direction Options
  *
@@ -1781,53 +1770,34 @@
  *  Reversed Menu Navigation only?    Enable REVERSE_MENU_DIRECTION.
  *  Reversed Value Editing only?      Enable BOTH options.
  */
-
-//
 // This option reverses the encoder direction everywhere.
-//
 //  Set this option if CLOCKWISE causes values to DECREASE
-//
 //#define REVERSE_ENCODER_DIRECTION
 
-//
 // This option reverses the encoder direction for navigating LCD menus.
-//
 //  If CLOCKWISE normally moves DOWN this makes it go UP.
 //  If CLOCKWISE normally moves UP this makes it go DOWN.
-//
 //#define REVERSE_MENU_DIRECTION
 
-//
 // This option reverses the encoder direction for Select Screen.
-//
 //  If CLOCKWISE normally moves LEFT this makes it go RIGHT.
 //  If CLOCKWISE normally moves RIGHT this makes it go LEFT.
-//
 //#define REVERSE_SELECT_DIRECTION
 
-//
 // Individual Axis Homing
-//
 // Add individual axis homing items (Home X, Home Y, and Home Z) to the LCD menu.
-//
 #define INDIVIDUAL_AXIS_HOMING_MENU
 //#define INDIVIDUAL_AXIS_HOMING_SUBMENU
 
-//
 // SPEAKER/BUZZER
-//
 // If you have a speaker that can produce tones, enable it here.
 // By default Marlin assumes you have a buzzer with a fixed frequency.
-//
 #define SPEAKER
 
-//
 // The duration and frequency for the UI feedback sound.
 // Set these to 0 to disable audio feedback in the LCD menus.
-//
 // Note: Test audio output with the G-Code:
 //  M300 S<frequency Hz> P<duration ms>
-//
 //#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
 //#define LCD_FEEDBACK_FREQUENCY_HZ 5000
 
@@ -1836,7 +1806,6 @@
 //=========================      (Graphical LCDs)      ========================
 //=============================================================================
 
-//
 // RepRapDiscount FULL GRAPHIC Smart Controller
 // https://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
@@ -1848,19 +1817,15 @@
 //=============================================================================
 
 
-//
 // Third-party or vendor-customized controller interfaces.
 // Sources should be installed in 'src/lcd/extui'.
-//
 //#define EXTENSIBLE_UI
 
 #if ENABLED(EXTENSIBLE_UI)
   //#define EXTUI_LOCAL_BEEPER // Enables use of local Beeper pin with external display
 #endif
 
-//
 // Generic TFT with detailed options
-//
 //#define TFT_GENERIC
 #if ENABLED(TFT_GENERIC)
   // :[ 'AUTO', 'ST7735', 'ST7789', 'ST7796', 'R61505', 'ILI9328', 'ILI9341', 'ILI9488' ]
@@ -1906,7 +1871,6 @@
 //#define TFT_ROTATION TFT_NO_ROTATION
 
 // Touch Screen Settings
-//
 //#define TOUCH_SCREEN
 #if ENABLED(TOUCH_SCREEN)
   #define BUTTON_DELAY_EDIT  50 // (ms) Button repeat delay for edit screens
