@@ -122,7 +122,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "SWX1 BMG E3DV6 v3.6"
+#define CUSTOM_MACHINE_NAME "SWX1 BMG E3DV6 v3.7"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -954,9 +954,9 @@
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
 #define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  8 // Z Clearance between probe points
+#define Z_CLEARANCE_BETWEEN_PROBES  100 // Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE     8 // Z Clearance between multiple probes
-#define Z_AFTER_PROBING           100 // Z position after probing is done
+#define Z_AFTER_PROBING           20 // Z position after probing is done
 
 #define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
 
